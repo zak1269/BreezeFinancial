@@ -1,0 +1,1137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Breeze Financial, LLC — Independent advice for the life you're building</title>
+  <meta name="description" content="Boutique financial planning, investments, and insurance from Patty M. Breeze, CFP®, CLU. Serving Kentucky and Florida since 2002." />
+
+  <!-- Web fonts: Fraunces (display serif) for warmth + Inter (humanist sans) for clarity -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       Design tokens
+       ========================================================= */
+    :root {
+      /* Light & airy palette — soft blues + warm neutrals */
+      --cloud:      #f6f3ec;   /* warm cream background */
+      --paper:      #fbfaf6;   /* slightly lighter card surface */
+      --mist:       #e7eef2;   /* palest blue */
+      --sky:        #c7dbe6;   /* soft sky blue */
+      --sea:        #4f7a92;   /* mid blue — secondary */
+      --deep:       #1f3a4d;   /* deep navy — primary text accent */
+      --ink:        #20262b;   /* body text */
+      --quiet:      #5a6770;   /* muted text */
+      --hairline:   #e3dccd;   /* warm divider */
+      /* One confident accent — warm terracotta/clay */
+      --accent:     #c25a3a;
+      --accent-ink: #8c3d24;
+
+      --radius-sm: 6px;
+      --radius:    14px;
+      --radius-lg: 22px;
+
+      --shadow-sm: 0 1px 2px rgba(31,58,77,.04), 0 2px 8px rgba(31,58,77,.04);
+      --shadow:    0 4px 14px rgba(31,58,77,.06), 0 18px 40px rgba(31,58,77,.06);
+
+      --max:   1180px;
+      --gutter: clamp(20px, 4vw, 40px);
+
+      --font-serif: "Fraunces", Georgia, "Times New Roman", serif;
+      --font-sans:  "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    /* =========================================================
+       Base
+       ========================================================= */
+    *,*::before,*::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--ink);
+      background: var(--cloud);
+      line-height: 1.6;
+      font-size: 17px;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    img { max-width: 100%; display: block; }
+    a { color: var(--deep); text-decoration: none; }
+    a:hover { color: var(--accent-ink); }
+    button { font: inherit; cursor: pointer; }
+
+    h1,h2,h3,h4 {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      color: var(--deep);
+      margin: 0 0 .5em;
+      line-height: 1.15;
+      font-variation-settings: "opsz" 96;
+    }
+    h1 { font-size: clamp(2.4rem, 5.4vw, 4.2rem); font-weight: 400; letter-spacing: -0.02em; }
+    h2 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); }
+    h3 { font-size: 1.25rem; font-variation-settings: "opsz" 24; }
+    p  { margin: 0 0 1em; color: var(--ink); }
+    .lead { font-size: 1.125rem; color: var(--quiet); max-width: 56ch; }
+
+    .wrap { max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
+
+    .eyebrow {
+      display: inline-block;
+      font-family: var(--font-sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent-ink);
+      margin-bottom: 1rem;
+    }
+    .eyebrow::before {
+      content: "";
+      display: inline-block;
+      width: 26px; height: 1px;
+      background: var(--accent);
+      vertical-align: middle;
+      margin-right: 10px;
+      transform: translateY(-2px);
+    }
+
+    /* =========================================================
+       Buttons
+       ========================================================= */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .95rem 1.5rem;
+      border-radius: 999px;
+      font-weight: 500;
+      font-size: .98rem;
+      border: 1px solid transparent;
+      transition: transform .2s ease, background .2s ease, color .2s ease, border-color .2s ease, box-shadow .2s ease;
+      white-space: nowrap;
+    }
+    .btn-primary {
+      background: var(--deep);
+      color: var(--paper);
+      box-shadow: 0 6px 20px rgba(31,58,77,.18);
+    }
+    .btn-primary:hover { background: var(--accent-ink); color: var(--paper); transform: translateY(-1px); }
+    .btn-ghost {
+      background: transparent;
+      color: var(--deep);
+      border-color: rgba(31,58,77,.25);
+    }
+    .btn-ghost:hover { border-color: var(--deep); background: rgba(255,255,255,.5); }
+    .btn .arr { transition: transform .2s ease; }
+    .btn:hover .arr { transform: translateX(3px); }
+
+    /* =========================================================
+       Header / Nav
+       ========================================================= */
+    .site-header {
+      position: sticky; top: 0; z-index: 50;
+      backdrop-filter: saturate(140%) blur(10px);
+      -webkit-backdrop-filter: saturate(140%) blur(10px);
+      background: rgba(246,243,236,.78);
+      border-bottom: 1px solid transparent;
+      transition: border-color .25s ease, background .25s ease;
+    }
+    .site-header.scrolled {
+      border-bottom-color: var(--hairline);
+      background: rgba(246,243,236,.92);
+    }
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 76px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: .65rem;
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      color: var(--deep);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+    }
+    .brand-mark {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sky), var(--mist));
+      display: grid; place-items: center;
+      box-shadow: inset 0 0 0 1px rgba(31,58,77,.08);
+    }
+    .brand-mark svg { width: 20px; height: 20px; }
+
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a {
+      font-size: .95rem;
+      color: var(--ink);
+      font-weight: 500;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute; left: 0; bottom: -6px;
+      width: 0; height: 1px; background: var(--accent);
+      transition: width .25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta { display: flex; gap: .6rem; align-items: center; }
+    .nav-cta .phone { font-size: .92rem; color: var(--quiet); }
+    .nav-cta .phone strong { color: var(--deep); font-weight: 600; }
+
+    .menu-toggle {
+      display: none;
+      background: transparent; border: 0;
+      width: 40px; height: 40px;
+      padding: 0;
+    }
+    .menu-toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--deep); margin: 5px auto;
+      transition: transform .25s ease, opacity .25s ease;
+    }
+    .menu-toggle.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .menu-toggle.open span:nth-child(2) { opacity: 0; }
+    .menu-toggle.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* =========================================================
+       Hero
+       ========================================================= */
+    .hero {
+      position: relative;
+      padding: clamp(60px, 9vw, 120px) 0 clamp(80px, 10vw, 140px);
+      overflow: hidden;
+    }
+    .hero::before {
+      /* airy gradient backdrop — evokes the "breeze" */
+      content: "";
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(1100px 600px at 85% -10%, rgba(199,219,230,.55), transparent 60%),
+        radial-gradient(900px 500px at -10% 30%, rgba(231,238,242,.85), transparent 60%),
+        linear-gradient(180deg, var(--cloud) 0%, var(--paper) 100%);
+      z-index: -2;
+    }
+    .hero::after {
+      /* soft cloud-like shape */
+      content: "";
+      position: absolute;
+      right: -10%; top: 8%;
+      width: 520px; height: 520px;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(199,219,230,.0) 70%);
+      filter: blur(8px);
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: clamp(40px, 5vw, 80px);
+      align-items: center;
+    }
+    .hero h1 .accent { color: var(--accent-ink); font-style: italic; font-weight: 400; }
+    .hero .lead { margin-top: 1.2rem; font-size: 1.18rem; }
+    .hero-actions { display: flex; gap: .8rem; margin-top: 2rem; flex-wrap: wrap; }
+    .hero-meta {
+      display: flex; gap: 1.6rem; flex-wrap: wrap;
+      margin-top: 2.5rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--hairline);
+      color: var(--quiet);
+      font-size: .9rem;
+    }
+    .hero-meta strong { color: var(--deep); font-weight: 600; font-family: var(--font-serif); font-size: 1.4rem; display: block; margin-bottom: 2px; }
+
+    /* Hero figure — Patty's portrait + attribution */
+    .hero-figure { margin: 0; }
+    .hero-visual {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      background: linear-gradient(220deg, #d9e6ec 0%, #f0e6d3 100%);
+    }
+    .hero-visual img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+    }
+    .hero-figcaption {
+      display: flex; align-items: center; gap: .65rem;
+      margin-top: 1rem;
+      font-size: .92rem;
+      color: var(--quiet);
+      font-family: var(--font-sans);
+    }
+    .hero-figcaption strong {
+      color: var(--deep);
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 1.02rem;
+    }
+    .hero-figcaption .dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent);
+      flex: 0 0 auto;
+    }
+
+    /* =========================================================
+       Section scaffolding
+       ========================================================= */
+    section { padding: clamp(70px, 8vw, 120px) 0; position: relative; }
+    .section-head { max-width: 720px; margin-bottom: 3rem; }
+    .section-head .lead { margin-top: .5rem; }
+
+    .alt { background: var(--paper); }
+    .alt-mist { background: linear-gradient(180deg, var(--paper) 0%, var(--mist) 100%); }
+
+    /* =========================================================
+       Services
+       ========================================================= */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+    }
+    .service {
+      background: var(--paper);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius-lg);
+      padding: 2.2rem 2rem 2rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+    }
+    .service:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+      border-color: transparent;
+    }
+    .service::after {
+      content: "";
+      position: absolute; left: 0; top: 0; height: 3px; width: 0;
+      background: var(--accent);
+      transition: width .4s ease;
+    }
+    .service:hover::after { width: 100%; }
+    .service .num {
+      font-family: var(--font-serif);
+      font-size: .9rem;
+      color: var(--accent-ink);
+      letter-spacing: .15em;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .service h3 { margin-bottom: .6rem; }
+    .service p { color: var(--quiet); font-size: .98rem; }
+    .service ul {
+      margin: 1rem 0 0;
+      padding: 0;
+      list-style: none;
+      font-size: .92rem;
+      color: var(--ink);
+    }
+    .service ul li {
+      padding: .35rem 0;
+      border-top: 1px dashed var(--hairline);
+    }
+    .service ul li:first-child { border-top: 0; }
+    .service .fine-print {
+      margin: 1.2rem 0 0;
+      padding-top: 1rem;
+      border-top: 1px solid var(--hairline);
+      font-size: .72rem;
+      line-height: 1.55;
+      color: var(--quiet);
+      letter-spacing: .005em;
+    }
+    .service .fine-print a {
+      color: var(--deep);
+      border-bottom: 1px solid var(--hairline);
+      transition: border-color .2s ease, color .2s ease;
+    }
+    .service .fine-print a:hover {
+      color: var(--accent-ink);
+      border-bottom-color: var(--accent);
+    }
+    .service .ico {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: var(--mist);
+      display: grid; place-items: center;
+      color: var(--sea);
+      margin-bottom: 1.2rem;
+    }
+    .service .ico svg { width: 22px; height: 22px; }
+
+    /* =========================================================
+       About Patty
+       ========================================================= */
+    .about-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      gap: clamp(40px, 6vw, 90px);
+      align-items: center;
+    }
+    .portrait {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      background:
+        radial-gradient(60% 50% at 50% 35%, rgba(255,255,255,.6), transparent 70%),
+        linear-gradient(200deg, #e7d9c4 0%, #c7dbe6 100%);
+      box-shadow: var(--shadow);
+    }
+    .portrait .label {
+      position: absolute; bottom: 18px; left: 18px; right: 18px;
+      background: rgba(251,250,246,.9);
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: .88rem;
+      color: var(--quiet);
+      backdrop-filter: blur(6px);
+    }
+    .portrait .label strong { color: var(--deep); display: block; font-family: var(--font-serif); font-size: 1.05rem; }
+
+    .creds {
+      display: flex; gap: .5rem; flex-wrap: wrap;
+      margin: 1.4rem 0;
+    }
+    .creds span {
+      background: var(--mist);
+      color: var(--deep);
+      padding: .4rem .85rem;
+      border-radius: 999px;
+      font-size: .82rem;
+      font-weight: 500;
+      letter-spacing: .02em;
+    }
+
+    .boards {
+      margin-top: 2rem;
+      padding: 1.4rem 1.6rem;
+      background: var(--paper);
+      border-left: 3px solid var(--accent);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .boards h4 {
+      font-family: var(--font-sans);
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: var(--quiet);
+      margin: 0 0 .6rem;
+    }
+    .boards ul {
+      margin: 0; padding: 0; list-style: none;
+      display: grid; grid-template-columns: 1fr 1fr; gap: .4rem .8rem;
+      font-size: .95rem;
+    }
+    .boards ul li::before {
+      content: "·";
+      color: var(--accent);
+      margin-right: .5rem;
+      font-weight: 700;
+    }
+
+    /* =========================================================
+       Values
+       ========================================================= */
+    .values-hero {
+      text-align: center;
+      max-width: 880px;
+      margin: 0 auto 3.5rem;
+    }
+    .values-hero h2 {
+      font-size: clamp(2.2rem, 4.6vw, 3.6rem);
+      font-weight: 400;
+    }
+    .values-hero h2 em { color: var(--accent-ink); font-style: italic; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+    }
+    .value {
+      background: var(--paper);
+      padding: 2rem 1.8rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--hairline);
+    }
+    .value h3 { font-size: 1.15rem; }
+    .value p { color: var(--quiet); font-size: .96rem; margin: 0; }
+    .value .v-num {
+      font-family: var(--font-serif);
+      color: var(--accent);
+      font-size: 1.6rem;
+      display: block;
+      margin-bottom: .8rem;
+      line-height: 1;
+    }
+
+    /* =========================================================
+       Contact
+       ========================================================= */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(30px, 5vw, 70px);
+      align-items: start;
+    }
+    .offices { display: grid; gap: 1.2rem; margin-top: 2rem; }
+    .office {
+      background: var(--paper);
+      border: 1px solid var(--hairline);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 1.1rem;
+      align-items: start;
+    }
+    .office .pin {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: var(--mist);
+      color: var(--sea);
+      display: grid; place-items: center;
+    }
+    .office h4 {
+      margin: 0 0 .25rem;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+    }
+    .office .addr { font-style: normal; color: var(--quiet); font-size: .95rem; line-height: 1.55; }
+
+    .direct {
+      display: flex; flex-direction: column; gap: .7rem;
+      margin-top: 1.6rem;
+      padding-top: 1.6rem;
+      border-top: 1px solid var(--hairline);
+    }
+    .direct a {
+      display: inline-flex; align-items: center; gap: .65rem;
+      font-size: 1.02rem;
+      color: var(--deep);
+      font-weight: 500;
+    }
+    .direct a svg { width: 18px; height: 18px; color: var(--accent); }
+
+    /* Form */
+    .form-card {
+      background: var(--paper);
+      border-radius: var(--radius-lg);
+      padding: clamp(28px, 4vw, 44px);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--hairline);
+    }
+    .form-card h3 {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      margin-bottom: .4rem;
+    }
+    .form-card .sub { color: var(--quiet); margin-bottom: 1.6rem; font-size: .95rem; }
+    .field { margin-bottom: 1.1rem; }
+    .field label {
+      display: block;
+      font-size: .82rem;
+      font-weight: 500;
+      color: var(--quiet);
+      margin-bottom: .4rem;
+      letter-spacing: .02em;
+    }
+    .field input, .field select, .field textarea {
+      width: 100%;
+      font: inherit;
+      padding: .85rem 1rem;
+      border: 1px solid var(--hairline);
+      background: var(--cloud);
+      border-radius: 10px;
+      color: var(--ink);
+      transition: border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+    .field input:focus, .field select:focus, .field textarea:focus {
+      outline: 0;
+      border-color: var(--sea);
+      background: #fff;
+      box-shadow: 0 0 0 4px rgba(79,122,146,.12);
+    }
+    .field textarea { min-height: 110px; resize: vertical; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-card button { width: 100%; justify-content: center; margin-top: .4rem; }
+    .form-note { font-size: .78rem; color: var(--quiet); margin-top: 1rem; }
+
+    /* =========================================================
+       Footer
+       ========================================================= */
+    footer {
+      background: var(--deep);
+      color: #cdd9df;
+      padding: clamp(60px, 7vw, 90px) 0 28px;
+      font-size: .92rem;
+    }
+    footer a { color: #cdd9df; }
+    footer a:hover { color: #fff; }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr 1fr;
+      gap: 2.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-top h5 {
+      font-family: var(--font-sans);
+      font-size: .78rem;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      color: #fff;
+      margin: 0 0 1rem;
+      font-weight: 600;
+    }
+    .footer-top ul { margin: 0; padding: 0; list-style: none; display: grid; gap: .55rem; }
+    .footer-brand p { color: #97a8b1; max-width: 38ch; margin-top: 1rem; }
+    .footer-brand .brand { color: #fff; }
+    .footer-brand .brand-mark { background: linear-gradient(135deg, rgba(255,255,255,.2), rgba(255,255,255,.05)); }
+
+    .disclosure {
+      margin-top: 2rem;
+      padding: 1.4rem 1.6rem;
+      background: rgba(255,255,255,.04);
+      border-left: 2px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      font-size: .82rem;
+      color: #a8b8c1;
+      line-height: 1.65;
+    }
+    .disclosure a {
+      color: #e6edf1;
+      border-bottom: 1px solid rgba(255,255,255,.18);
+      transition: border-color .2s ease, color .2s ease;
+    }
+    .disclosure a:hover {
+      color: #fff;
+      border-bottom-color: var(--accent);
+    }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 2.5rem;
+      color: #8a9aa3;
+      font-size: .82rem;
+    }
+
+    /* =========================================================
+       Scroll reveal
+       ========================================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(14px);
+      transition: opacity .8s ease, transform .8s ease;
+      transition-delay: var(--delay, 0s);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      html { scroll-behavior: auto; }
+    }
+
+    /* =========================================================
+       Responsive
+       ========================================================= */
+    @media (max-width: 960px) {
+      .hero-grid,
+      .about-grid,
+      .contact-grid { grid-template-columns: 1fr; }
+      .hero-visual { max-width: 460px; margin: 0 auto; }
+      .services-grid,
+      .values-grid { grid-template-columns: 1fr 1fr; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .footer-brand { grid-column: 1 / -1; }
+      .boards ul { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .nav-links, .nav-cta .phone { display: none; }
+      .menu-toggle { display: block; }
+      .mobile-panel {
+        position: fixed; inset: 76px 0 auto 0;
+        background: var(--paper);
+        border-bottom: 1px solid var(--hairline);
+        padding: 1.2rem var(--gutter) 1.6rem;
+        transform: translateY(-110%);
+        transition: transform .3s ease;
+        box-shadow: var(--shadow);
+        z-index: 49;
+      }
+      .mobile-panel.open { transform: translateY(0); }
+      .mobile-panel a {
+        display: block;
+        padding: .8rem 0;
+        font-size: 1.05rem;
+        border-bottom: 1px solid var(--hairline);
+      }
+      .mobile-panel .btn { margin-top: 1rem; width: 100%; justify-content: center; }
+      .services-grid,
+      .values-grid,
+      .field-row { grid-template-columns: 1fr; }
+      .footer-top { grid-template-columns: 1fr; }
+    }
+    @media (min-width: 721px) {
+      .mobile-panel { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================
+       HEADER / NAVIGATION
+       ========================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="wrap nav" role="navigation" aria-label="Primary">
+      <a href="#top" class="brand" aria-label="Breeze Financial, LLC home">
+        <span class="brand-mark" aria-hidden="true">
+          <!-- Mark: simple breeze/wave -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1f3a4d" stroke-width="1.6" stroke-linecap="round">
+            <path d="M3 9c3-3 6 3 9 0s6-3 9 0"/>
+            <path d="M3 15c3-3 6 3 9 0s6-3 9 0"/>
+          </svg>
+        </span>
+        Breeze Financial
+      </a>
+
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#values">Our Approach</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-cta">
+        <div class="phone">Call <strong>(859) 252‑0225</strong></div>
+        <a href="#contact" class="btn btn-primary">Schedule a Meeting</a>
+        <button class="menu-toggle" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="mobile-panel" id="mobilePanel">
+      <a href="#services">Services</a>
+      <a href="#values">Our Approach</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="btn btn-primary">Schedule a Meeting</a>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+  <section class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow">Independent. Fiduciary. Since 2002.</span>
+        <h1>Clear-headed advice for <span class="accent">the life you're building.</span></h1>
+        <p class="lead">
+          Breeze Financial is a boutique advisory practice in Lexington, Kentucky — guiding individuals,
+          families, and business owners through every season of planning, investing, and protecting what
+          matters most.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">
+            Schedule an introductory meeting
+            <span class="arr" aria-hidden="true">→</span>
+          </a>
+          <a href="#values" class="btn btn-ghost">Our approach</a>
+        </div>
+
+        <div class="hero-meta">
+          <div><strong>20+ yrs</strong>Independent practice</div>
+          <div><strong>KY &amp; FL</strong>Two-state footprint</div>
+          <div><strong>CFP® · CLU</strong>Fiduciary credentials</div>
+        </div>
+      </div>
+
+      <figure class="hero-figure reveal" style="--delay:.15s">
+        <div class="hero-visual">
+          <!-- HERO IMAGE: Sourced from BizLex Q&A feature (smileypete.com).
+               Replace with a licensed, high-resolution headshot of Patty for the final site. -->
+          <img src="https://smileypete.com/downloads/17924/download/Q%26A_PattyMBreeze.jpg?cb=ff84609eae59d728f849733d10e50713&w=600"
+               alt="Patty M. Breeze, CFP®, CLU — Founder and President of Breeze Financial, LLC">
+        </div>
+        <figcaption class="hero-figcaption">
+          <span class="dot" aria-hidden="true"></span>
+          <span><strong>Patty M. Breeze</strong> — Founder &amp; President</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       SERVICES
+       ========================================================= -->
+  <section id="services" class="alt">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">What we do</span>
+        <h2>Four pillars, one coordinated plan.</h2>
+        <p class="lead">
+          Most clients come to us with one question — and stay because we help them see how the rest
+          of their financial life fits together. Every engagement is independent, fiduciary, and built
+          around your goals first.
+        </p>
+      </div>
+
+      <div class="services-grid">
+
+        <article class="service reveal">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 17l5-5 4 4 8-8"/>
+              <path d="M14 8h6v6"/>
+            </svg>
+          </div>
+          <span class="num">01 / Pillar</span>
+          <h3>Investment Programs</h3>
+          <p>Open-architecture portfolios designed to match your risk, your timeline, and your tax picture — not a model off a shelf.</p>
+          <ul>
+            <li>Personalized portfolio design</li>
+            <li>Tax-aware rebalancing</li>
+            <li>Ongoing fiduciary oversight</li>
+          </ul>
+          <p class="fine-print">Investment Advisory Services are offered through <a href="https://meridianwealthllc.com" target="_blank" rel="noopener">Meridian Wealth Management, LLC</a>, an SEC-registered investment adviser. Registration does not imply any level of skill or training. Patty M. Breeze is an Investment Adviser Representative of Meridian Wealth Management, LLC. Insurance products and services are offered separately through Breeze Financial, LLC.</p>
+        </article>
+
+        <article class="service reveal" style="--delay:.08s">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="9" cy="8" r="3"/>
+              <circle cx="17" cy="10" r="2.4"/>
+              <path d="M3 19c.8-3.2 3.3-5 6-5s5.2 1.8 6 5"/>
+              <path d="M14.5 17.5c.6-2 2-3 3.5-3s2.7 1 3 2.5"/>
+            </svg>
+          </div>
+          <span class="num">02 / Pillar</span>
+          <h3>Employee Benefits</h3>
+          <p>Benefits packages that help small and mid-sized businesses recruit, retain, and reward the people who drive them forward.</p>
+          <ul>
+            <li>Group health, dental, vision &amp; disability</li>
+            <li>Retirement plan design &amp; review</li>
+            <li>Executive carve-out strategies</li>
+          </ul>
+        </article>
+
+        <article class="service reveal" style="--delay:.16s">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 21V8l8-5 8 5v13"/>
+              <path d="M9 21v-7h6v7"/>
+            </svg>
+          </div>
+          <span class="num">03 / Pillar</span>
+          <h3>Financial Planning</h3>
+          <p>A single, written plan that ties together everything you're working toward — and shows you exactly where you stand.</p>
+          <ul>
+            <li>Retirement &amp; income planning</li>
+            <li>College funding</li>
+            <li>Estate &amp; charitable giving</li>
+            <li>Business succession</li>
+          </ul>
+        </article>
+
+        <article class="service reveal" style="--delay:.24s">
+          <div class="ico" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/>
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div>
+          <span class="num">04 / Pillar</span>
+          <h3>Insurance Programs</h3>
+          <p>As an independent broker, we shop the carriers — so the protection you put in place actually fits the risk you're protecting against.</p>
+          <ul>
+            <li>Life, disability &amp; long-term care</li>
+            <li>Key-person &amp; buy-sell funding</li>
+            <li>Deferred compensation</li>
+            <li>Workers' compensation</li>
+          </ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       VALUES / WHY BREEZE
+       ========================================================= -->
+  <section id="values" class="alt-mist">
+    <div class="wrap">
+
+      <div class="values-hero reveal">
+        <span class="eyebrow">Our approach</span>
+        <h2>“People First, <em>Money Second.</em>”</h2>
+        <p class="lead" style="margin-left:auto;margin-right:auto;">
+          It's the line we open with — because the right financial decision almost always starts with a
+          real conversation about the people behind the numbers.
+        </p>
+      </div>
+
+      <div class="values-grid">
+
+        <div class="value reveal">
+          <span class="v-num">01</span>
+          <h3>People First</h3>
+          <p>We start by understanding your family, your business, and what you actually want a plan to do for you — before any product enters the conversation.</p>
+        </div>
+
+        <div class="value reveal" style="--delay:.1s">
+          <span class="v-num">02</span>
+          <h3>Independent &amp; Fiduciary</h3>
+          <p>No sales quotas, no proprietary products, no hidden incentives. As a fiduciary, our recommendations have to put your interests ahead of our own — and we wouldn't have it any other way.</p>
+        </div>
+
+        <div class="value reveal" style="--delay:.2s">
+          <span class="v-num">03</span>
+          <h3>Built to last</h3>
+          <p>The relationships we're proudest of are the ones now in their second decade — and, increasingly, their second generation.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTACT
+       ========================================================= -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+
+      <div class="reveal">
+        <span class="eyebrow">Let's talk</span>
+        <h2>An introductory meeting, no obligation.</h2>
+        <p class="lead">
+          The first conversation is always free, in person or by video, and exists for one reason:
+          to see whether we're the right fit for what you're trying to do. If we are, we'll tell you.
+          If we're not, we'll point you toward someone who is.
+        </p>
+
+        <div class="offices">
+          <div class="office">
+            <span class="pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-7.5 8-13a8 8 0 10-16 0c0 5.5 8 13 8 13z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+            </span>
+            <div>
+              <h4>Lexington, Kentucky</h4>
+              <address class="addr">
+                219 E High Street<br>
+                Lexington, KY 40507
+              </address>
+            </div>
+          </div>
+
+          <div class="office">
+            <span class="pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-7.5 8-13a8 8 0 10-16 0c0 5.5 8 13 8 13z"/>
+                <circle cx="12" cy="9" r="2.5"/>
+              </svg>
+            </span>
+            <div>
+              <h4>Ft. Myers, Florida</h4>
+              <address class="addr">
+                15172 Fiddlesticks Blvd<br>
+                Ft. Myers, FL 39912
+              </address>
+            </div>
+          </div>
+        </div>
+
+        <div class="direct">
+          <a href="tel:+18592520225">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.7 19.7 0 01-8.6-3.1 19.3 19.3 0 01-6-6A19.7 19.7 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z"/></svg>
+            (859) 252‑0225
+          </a>
+          <a href="mailto:patty@breezefinancialllc.com">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+            patty@breezefinancialllc.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Appointment form (placeholder — non-functional) -->
+      <form class="form-card reveal" style="--delay:.1s" onsubmit="event.preventDefault(); document.getElementById('formSubmitted').style.display='block'; this.querySelector('button').disabled=true;">
+        <h3>Request an appointment</h3>
+        <p class="sub">Tell us a little about you and we'll be in touch within one business day.</p>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="fn">First name</label>
+            <input id="fn" type="text" autocomplete="given-name" required>
+          </div>
+          <div class="field">
+            <label for="ln">Last name</label>
+            <input id="ln" type="text" autocomplete="family-name" required>
+          </div>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="em">Email</label>
+            <input id="em" type="email" autocomplete="email" required>
+          </div>
+          <div class="field">
+            <label for="ph">Phone</label>
+            <input id="ph" type="tel" autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="topic">I'd like to discuss</label>
+          <select id="topic">
+            <option>Financial planning &amp; retirement</option>
+            <option>Investment management</option>
+            <option>Insurance review</option>
+            <option>Business owner / employee benefits</option>
+            <option>Estate or charitable giving</option>
+            <option>Something else</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="msg">Anything we should know? (optional)</label>
+          <textarea id="msg" placeholder="A sentence or two is plenty."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          Request introductory meeting
+          <span class="arr" aria-hidden="true">→</span>
+        </button>
+        <p class="form-note">By submitting this form you consent to be contacted by Breeze Financial. No financial information is required at this stage.</p>
+
+        <p id="formSubmitted" style="display:none; margin-top:1rem; padding:.9rem 1rem; background:rgba(79,122,146,.1); border-radius:10px; color:var(--deep); font-size:.95rem;">
+          Thank you — Patty will be in touch shortly.
+        </p>
+      </form>
+
+    </div>
+  </section>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer>
+    <div class="wrap">
+
+      <div class="footer-top">
+        <div class="footer-brand">
+          <a href="#top" class="brand">
+            <span class="brand-mark" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" stroke-linecap="round">
+                <path d="M3 9c3-3 6 3 9 0s6-3 9 0"/>
+                <path d="M3 15c3-3 6 3 9 0s6-3 9 0"/>
+              </svg>
+            </span>
+            Breeze Financial, LLC
+          </a>
+          <p>Independent financial planning, investments &amp; insurance — serving Kentucky and Florida since 2002.</p>
+        </div>
+
+        <div>
+          <h5>Practice</h5>
+          <ul>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#values">Our Approach</a></li>
+            <li><a href="#contact">Schedule a Meeting</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h5>Contact</h5>
+          <ul>
+            <li><a href="tel:+18592520225">(859) 252‑0225</a></li>
+            <li><a href="mailto:patty@breezefinancialllc.com">patty@breezefinancialllc.com</a></li>
+            <li>219 E High St, Lexington, KY 40507</li>
+            <li>15172 Fiddlesticks Blvd, Ft. Myers, FL 39912</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- COMPLIANCE DISCLOSURE: Meridian Wealth Management, LLC (confirmed RIA affiliation). -->
+      <div class="disclosure">
+        Investment Advisory Services are offered through
+        <a href="https://meridianwealthllc.com" target="_blank" rel="noopener">Meridian Wealth Management, LLC</a>,
+        an SEC-registered investment adviser. Registration does not imply any level of skill or training.
+        Patty M. Breeze is an Investment Adviser Representative of Meridian Wealth Management, LLC.
+        Insurance products and services are offered separately through Breeze Financial, LLC.
+      </div>
+
+      <div class="footer-bottom">
+        <div>© <span id="yr"></span> Breeze Financial, LLC. All rights reserved.</div>
+        <div>Concept design — not for public release.</div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       SCRIPTS
+       ========================================================= -->
+  <script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Header shadow on scroll
+    const header = document.getElementById('siteHeader');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 8);
+    document.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+
+    // Mobile menu
+    const toggle = document.getElementById('menuToggle');
+    const panel  = document.getElementById('mobilePanel');
+    toggle.addEventListener('click', () => {
+      const open = panel.classList.toggle('open');
+      toggle.classList.toggle('open', open);
+      toggle.setAttribute('aria-expanded', open);
+    });
+    panel.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      panel.classList.remove('open');
+      toggle.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+    }));
+
+    // Scroll reveal — IntersectionObserver
+    const reduceMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion && 'IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('in');
+            io.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    } else {
+      document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    }
+  </script>
+</body>
+</html>
