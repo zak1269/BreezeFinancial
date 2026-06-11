@@ -1,100 +1,23 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useState } from 'react';
+import SiteHeader from './components/SiteHeader';
+import SiteFooter from './components/SiteFooter';
+import RevealOnScroll from './components/RevealOnScroll';
 
 export default function Home() {
-  const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  useEffect(() => {
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const elements = document.querySelectorAll('.reveal');
-    if (reduce || !('IntersectionObserver' in window)) {
-      elements.forEach((el) => el.classList.add('in'));
-      return;
-    }
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
-    );
-    elements.forEach((el) => io.observe(el));
-    return () => io.disconnect();
-  }, []);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     setSubmitted(true);
   };
 
-  const closeMenu = () => setMenuOpen(false);
-
   return (
     <>
-      {/* =========================================================
-          HEADER / NAVIGATION
-          ========================================================= */}
-      <header
-        className={`site-header${scrolled ? ' scrolled' : ''}`}
-        id="siteHeader"
-      >
-        <div className="wrap nav" role="navigation" aria-label="Primary">
-          <a href="#top" className="brand" aria-label="Breeze Financial, LLC home">
-            <span className="brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="#1f3a4d" strokeWidth="1.6" strokeLinecap="round">
-                <path d="M3 9c3-3 6 3 9 0s6-3 9 0" />
-                <path d="M3 15c3-3 6 3 9 0s6-3 9 0" />
-              </svg>
-            </span>
-            Breeze Financial
-          </a>
-
-          <nav className="nav-links">
-            <a href="#services">Services</a>
-            <a href="#values">Our Approach</a>
-            <a href="#contact">Contact</a>
-          </nav>
-
-          <div className="nav-cta">
-            <div className="phone">
-              Call <strong>(859) 252-0225</strong>
-            </div>
-            <a href="#contact" className="btn btn-primary">
-              Schedule a Meeting
-            </a>
-            <button
-              className={`menu-toggle${menuOpen ? ' open' : ''}`}
-              onClick={() => setMenuOpen((v) => !v)}
-              aria-label="Open menu"
-              aria-expanded={menuOpen}
-            >
-              <span /><span /><span />
-            </button>
-          </div>
-        </div>
-        <div className={`mobile-panel${menuOpen ? ' open' : ''}`}>
-          <a href="#services" onClick={closeMenu}>Services</a>
-          <a href="#values" onClick={closeMenu}>Our Approach</a>
-          <a href="#contact" onClick={closeMenu}>Contact</a>
-          <a href="#contact" className="btn btn-primary" onClick={closeMenu}>
-            Schedule a Meeting
-          </a>
-        </div>
-      </header>
+      <RevealOnScroll />
+      <SiteHeader />
 
       {/* =========================================================
           HERO
@@ -131,11 +54,9 @@ export default function Home() {
 
           <figure className="hero-figure reveal" style={{ '--delay': '.15s' }}>
             <div className="hero-visual">
-              {/* HERO IMAGE: Sourced from BizLex Q&A feature (smileypete.com).
-                  Replace with a licensed, high-resolution headshot of Patty for the final site. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://smileypete.com/downloads/17924/download/Q%26A_PattyMBreeze.jpg?cb=ff84609eae59d728f849733d10e50713&w=600"
+                src="/patty.png"
                 alt="Patty M. Breeze, CFP®, CLU. Founder and President of Breeze Financial, LLC."
               />
             </div>
@@ -152,115 +73,26 @@ export default function Home() {
       {/* =========================================================
           SERVICES
           ========================================================= */}
-      <section id="services" className="alt">
+      <section id="services" className="alt practices">
         <div className="wrap">
-          <div className="section-head reveal">
+          <div className="section-head practices-head reveal">
             <span className="eyebrow">What we do</span>
-            <h2>Four pillars, one coordinated plan.</h2>
+            <h2>Two practices, one coordinated plan.</h2>
             <p className="lead">
-              Most clients come to us with one question, and stay because we
-              help them see how the rest of their financial life fits together.
-              Every engagement is independent, fiduciary, and built around your
-              goals first.
+              Independent, fiduciary, and built around your goals first.
+              Explore the practice that brought you here.
             </p>
           </div>
 
-          <div className="services-grid">
-            <article className="service reveal">
-              <div className="ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M3 17l5-5 4 4 8-8" />
-                  <path d="M14 8h6v6" />
-                </svg>
-              </div>
-              <span className="num">01 / Pillar</span>
-              <h3>Investment Programs</h3>
-              <p>
-                Open-architecture portfolios designed to match your risk, your
-                timeline, and your tax picture, not a model off a shelf.
-              </p>
-              <ul>
-                <li>Personalized portfolio design</li>
-                <li>Tax-aware rebalancing</li>
-                <li>Ongoing fiduciary oversight</li>
-              </ul>
-              <p className="fine-print">
-                Investment Advisory Services are offered through{' '}
-                <a href="https://meridianwealthllc.com" target="_blank" rel="noopener noreferrer">
-                  Meridian Wealth Management, LLC
-                </a>
-                , an SEC-registered investment adviser. Registration does not
-                imply any level of skill or training. Patty M. Breeze is an
-                Investment Adviser Representative of Meridian Wealth Management,
-                LLC. Insurance products and services are offered separately
-                through Breeze Financial, LLC.
-              </p>
-            </article>
-
-            <article className="service reveal" style={{ '--delay': '.08s' }}>
-              <div className="ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="9" cy="8" r="3" />
-                  <circle cx="17" cy="10" r="2.4" />
-                  <path d="M3 19c.8-3.2 3.3-5 6-5s5.2 1.8 6 5" />
-                  <path d="M14.5 17.5c.6-2 2-3 3.5-3s2.7 1 3 2.5" />
-                </svg>
-              </div>
-              <span className="num">02 / Pillar</span>
-              <h3>Employee Benefits</h3>
-              <p>
-                Benefits packages that help small and mid-sized businesses
-                recruit, retain, and reward the people who drive them forward.
-              </p>
-              <ul>
-                <li>Group health, dental, vision &amp; disability</li>
-                <li>Retirement plan design &amp; review</li>
-                <li>Executive carve-out strategies</li>
-              </ul>
-            </article>
-
-            <article className="service reveal" style={{ '--delay': '.16s' }}>
-              <div className="ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M4 21V8l8-5 8 5v13" />
-                  <path d="M9 21v-7h6v7" />
-                </svg>
-              </div>
-              <span className="num">03 / Pillar</span>
-              <h3>Financial Planning</h3>
-              <p>
-                A single, written plan that ties together everything you’re
-                working toward, and shows you exactly where you stand.
-              </p>
-              <ul>
-                <li>Retirement &amp; income planning</li>
-                <li>College funding</li>
-                <li>Estate &amp; charitable giving</li>
-                <li>Business succession</li>
-              </ul>
-            </article>
-
-            <article className="service reveal" style={{ '--delay': '.24s' }}>
-              <div className="ico" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z" />
-                  <path d="M9 12l2 2 4-4" />
-                </svg>
-              </div>
-              <span className="num">04 / Pillar</span>
-              <h3>Insurance Programs</h3>
-              <p>
-                As an independent broker, we shop the carriers, so the
-                protection you put in place actually fits the risk you’re
-                protecting against.
-              </p>
-              <ul>
-                <li>Life, disability &amp; long-term care</li>
-                <li>Key-person &amp; buy-sell funding</li>
-                <li>Deferred compensation</li>
-                <li>Workers’ compensation</li>
-              </ul>
-            </article>
+          <div className="practice-buttons reveal">
+            <Link href="/wealth-management" className="btn btn-primary practice-btn">
+              Wealth Management
+              <span className="arr" aria-hidden="true">→</span>
+            </Link>
+            <Link href="/insurance" className="btn btn-primary practice-btn">
+              Insurance
+              <span className="arr" aria-hidden="true">→</span>
+            </Link>
           </div>
         </div>
       </section>
@@ -341,8 +173,8 @@ export default function Home() {
                 <div>
                   <h4>Lexington, Kentucky</h4>
                   <address className="addr">
-                    219 E High Street<br />
-                    Lexington, KY 40507
+                    2365 Harrodsburg Rd, Suite A240<br />
+                    Lexington, KY 40504
                   </address>
                 </div>
               </div>
@@ -365,18 +197,18 @@ export default function Home() {
             </div>
 
             <div className="direct">
-              <a href="tel:+18592520225">
+              <a href="tel:+18594071946">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M22 16.9v3a2 2 0 01-2.2 2 19.7 19.7 0 01-8.6-3.1 19.3 19.3 0 01-6-6A19.7 19.7 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.6 2.6a2 2 0 01-.5 2.1L8 9.6a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.8.3 1.7.5 2.6.6a2 2 0 011.7 2z" />
                 </svg>
-                (859) 252-0225
+                (859) 407-1946
               </a>
-              <a href="mailto:patty@breezefinancialllc.com">
+              <a href="mailto:pbreeze@meridianwealthllc.com">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
                   <rect x="3" y="5" width="18" height="14" rx="2" />
                   <path d="M3 7l9 6 9-6" />
                 </svg>
-                patty@breezefinancialllc.com
+                pbreeze@meridianwealthllc.com
               </a>
             </div>
           </div>
@@ -450,67 +282,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* =========================================================
-          FOOTER
-          ========================================================= */}
-      <footer>
-        <div className="wrap">
-          <div className="footer-top">
-            <div className="footer-brand">
-              <a href="#top" className="brand">
-                <span className="brand-mark" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.6" strokeLinecap="round">
-                    <path d="M3 9c3-3 6 3 9 0s6-3 9 0" />
-                    <path d="M3 15c3-3 6 3 9 0s6-3 9 0" />
-                  </svg>
-                </span>
-                Breeze Financial, LLC
-              </a>
-              <p>
-                Independent financial planning, investments &amp; insurance,
-                serving Kentucky and Florida since 2002.
-              </p>
-            </div>
-
-            <div>
-              <h5>Practice</h5>
-              <ul>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#values">Our Approach</a></li>
-                <li><a href="#contact">Schedule a Meeting</a></li>
-              </ul>
-            </div>
-
-            <div>
-              <h5>Contact</h5>
-              <ul>
-                <li><a href="tel:+18592520225">(859) 252-0225</a></li>
-                <li><a href="mailto:patty@breezefinancialllc.com">patty@breezefinancialllc.com</a></li>
-                <li>219 E High St, Lexington, KY 40507</li>
-                <li>15172 Fiddlesticks Blvd, Ft. Myers, FL 39912</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* COMPLIANCE DISCLOSURE: Meridian Wealth Management, LLC (confirmed RIA affiliation). */}
-          <div className="disclosure">
-            Investment Advisory Services are offered through{' '}
-            <a href="https://meridianwealthllc.com" target="_blank" rel="noopener noreferrer">
-              Meridian Wealth Management, LLC
-            </a>
-            , an SEC-registered investment adviser. Registration does not imply
-            any level of skill or training. Patty M. Breeze is an Investment
-            Adviser Representative of Meridian Wealth Management, LLC. Insurance
-            products and services are offered separately through Breeze
-            Financial, LLC.
-          </div>
-
-          <div className="footer-bottom">
-            <div>© {new Date().getFullYear()} Breeze Financial, LLC. All rights reserved.</div>
-            <div>Concept design, not for public release.</div>
-          </div>
-        </div>
-      </footer>
+      <SiteFooter />
     </>
   );
 }
