@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import SiteHeader from './components/SiteHeader';
@@ -54,10 +55,12 @@ export default function Home() {
 
           <figure className="hero-figure reveal" style={{ '--delay': '.15s' }}>
             <div className="hero-visual">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <Image
                 src="/patty.png"
                 alt="Patty M. Breeze, CFP®, CLU. Founder and President of Breeze Financial, LLC."
+                fill
+                priority
+                sizes="(max-width: 960px) 92vw, 42vw"
               />
             </div>
             <figcaption className="hero-figcaption">

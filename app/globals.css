@@ -46,9 +46,9 @@ body {
   text-rendering: optimizeLegibility;
 }
 img { max-width: 100%; display: block; }
-a { color: var(--deep); text-decoration: none; }
+a { color: var(--deep); text-decoration: none; -webkit-tap-highlight-color: transparent; }
 a:hover { color: var(--accent-ink); }
-button { font: inherit; cursor: pointer; }
+button { font: inherit; cursor: pointer; -webkit-tap-highlight-color: transparent; }
 
 h1,h2,h3,h4 {
   font-family: var(--font-serif);
@@ -844,32 +844,105 @@ footer a:hover { color: #fff; }
   .footer-brand { grid-column: 1 / -1; }
 }
 @media (max-width: 720px) {
-  .site-header { --header-h: 64px; }
+  /* ---------- Header ---------- */
+  .site-header { --header-h: 60px; }
+  .nav {
+    gap: .5rem;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
   .nav-links,
   .nav-cta .phone,
   .nav-cta > .btn { display: none; }
   .nav-cta { gap: 0; }
-  .brand { font-size: 1.15rem; }
-  .brand-mark { width: 30px; height: 30px; }
-  .brand-mark svg { width: 18px; height: 18px; }
-  .menu-toggle { display: block; }
+  .brand { font-size: 1.1rem; gap: .5rem; }
+  .brand-mark { width: 28px; height: 28px; }
+  .brand-mark svg { width: 16px; height: 16px; }
+  .menu-toggle { display: block; width: 44px; height: 44px; margin-right: -8px; }
   .mobile-panel { display: block; }
   .mobile-panel a {
     display: block;
-    padding: .8rem 0;
+    padding: .85rem 0;
     font-size: 1.05rem;
     border-bottom: 1px solid var(--hairline);
   }
+  .mobile-panel a:last-of-type { border-bottom: 0; }
   .mobile-panel .mobile-phone {
     font-weight: 600;
     color: var(--deep);
   }
   .mobile-panel .btn { margin-top: 1rem; width: 100%; justify-content: center; }
+
+  /* ---------- Grids collapse to one column ---------- */
   .services-grid,
   .values-grid,
   .stat-grid,
   .field-row { grid-template-columns: 1fr; }
   .footer-top { grid-template-columns: 1fr; }
-  .process-list li { padding: 1.4rem 1.4rem 1.4rem 4rem; }
-  .process-list .p-num { left: 1.2rem; top: 1.4rem; }
+  .process-list li { padding: 1.3rem 1.3rem 1.3rem 3.6rem; }
+  .process-list .p-num { left: 1.1rem; top: 1.3rem; font-size: 1.3rem; }
+
+  /* ---------- Vertical rhythm ---------- */
+  section { padding: 48px 0; }
+  .hero { padding: 28px 0 44px; }
+  .page-hero { padding: 32px 0 24px; }
+  .practices { padding: 44px 0; }
+  .page-cta { padding: 56px 0; }
+
+  .section-head { margin-bottom: 1.8rem; }
+  .values-hero { margin-bottom: 2rem; }
+  .practices-head { margin-bottom: 1.8rem; }
+
+  /* ---------- Hero ---------- */
+  .hero-grid { gap: 28px; }
+  .hero h1 { line-height: 1.12; }
+  .hero .lead { font-size: 1.02rem; margin-top: 1rem; }
+  .hero-actions { margin-top: 1.4rem; gap: .6rem; }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.2rem;
+    margin-top: 1.6rem;
+    padding-top: 1.2rem;
+  }
+  .hero-meta strong { font-size: 1.15rem; }
+  .hero-figure { max-width: 340px; }
+
+  /* ---------- Cards ---------- */
+  .service { padding: 1.5rem 1.3rem 1.4rem; }
+  .stat { padding: 1.5rem 1.3rem; }
+  .value { padding: 1.4rem 1.2rem; }
+  .form-card { padding: 1.5rem 1.3rem; }
+  .office { padding: 1.1rem 1.2rem; gap: .85rem; }
+  .cta-card { padding: 1.8rem 1.3rem; }
+
+  /* ---------- Type ---------- */
+  .lead { font-size: 1rem; }
+  .eyebrow { margin-bottom: .8rem; }
+
+  /* ---------- Footer ---------- */
+  .footer-top { gap: 1.6rem; padding-bottom: 1.6rem; }
+  .disclosure { padding: 1rem 1.1rem; font-size: .78rem; margin-top: 1.4rem; }
+  .footer-bottom { margin-top: 1.6rem; gap: .4rem; }
+}
+
+@media (max-width: 480px) {
+  :root { --gutter: 18px; }
+  .site-header { --header-h: 56px; }
+  .menu-toggle { width: 40px; height: 40px; margin-right: -6px; }
+  .brand { font-size: 1.05rem; }
+  .brand-mark { width: 26px; height: 26px; }
+  .brand-mark svg { width: 15px; height: 15px; }
+
+  h1 { font-size: 2rem; line-height: 1.1; }
+  h2 { font-size: 1.65rem; }
+  .page-hero-copy h1 { font-size: 1.9rem; }
+  .values-hero h2 { font-size: 1.85rem; }
+  .stat-num { font-size: 2.1rem; }
+  .practice-btn { padding: 1rem 1.4rem; font-size: 1rem; min-width: 0; width: 100%; }
+  .hero-actions .btn { padding: .8rem 1.1rem; font-size: .92rem; }
+  .hero-meta {
+    grid-template-columns: 1fr;
+    gap: .8rem;
+  }
 }
