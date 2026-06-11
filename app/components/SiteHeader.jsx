@@ -39,24 +39,17 @@ export default function SiteHeader() {
           <Link href="/#contact">Contact</Link>
         </nav>
 
-        <div className="nav-cta">
-          <div className="phone">
-            Call <strong>(859) 407-1946</strong>
-          </div>
-          <Link href="/#contact" className="btn btn-primary">
-            Schedule a Meeting
-          </Link>
-          <button
-            className={`menu-toggle${menuOpen ? ' open' : ''}`}
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            aria-controls="mobilePanel"
-          >
-            <span /><span /><span />
-          </button>
-        </div>
+        <button
+          className={`menu-toggle${menuOpen ? ' open' : ''}`}
+          onClick={() => setMenuOpen((v) => !v)}
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          aria-controls="mobilePanel"
+        >
+          <span /><span /><span />
+        </button>
       </div>
+
       <div
         className={`mobile-panel${menuOpen ? ' open' : ''}`}
         id="mobilePanel"
